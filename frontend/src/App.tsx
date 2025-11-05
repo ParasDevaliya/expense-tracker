@@ -1,16 +1,21 @@
-import './App.css'
-import { Button } from './components/ui/button'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import LoginPage from "./pages/auth/login";
+import HomePage from "./pages/user/home";
+import RegisterPage from "./pages/auth/register";
 
 function App() {
-
   return (
     <>
-      <div>
-        <h1 className='text-cyan-800 font-bold'> hello word </h1>
-         <Button variant="outline" className='mt-5'>Click me</Button>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

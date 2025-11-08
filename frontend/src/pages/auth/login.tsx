@@ -1,110 +1,118 @@
-import { Link } from "react-router-dom";
-import AuthLayout from "../../components/layout/auth-layout";
-import { Button } from "../../components/ui/button";
-import { Checkbox } from "../../components/ui/checkbox";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import API from "@/api/api";
 
 export default function LoginPage() {
-  return (
-    <AuthLayout>
-      <form className="flex flex-col gap-6">
-        <div className="grid gap-6">
-          <div className="grid gap-2 text-left">
-            <Label htmlFor="email">Email address</Label>
-            <Input
-              id="email"
-              type="email"
-              required
-              autoFocus
-              tabIndex={1}
-              autoComplete="email"
-              //   value={data.email}
-              //   onChange={(e) => setData("email", e.target.value)}
-              placeholder="email@example.com"
-            />
-            {/* <InputError message={errors.email} /> */}
-          </div>
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              {/* {canResetPassword && (
-                <TextLink
-                  href={route("password.request")}
-                  className="ml-auto text-sm"
-                  tabIndex={5}
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const res = await API.post("/auth/login", formData);
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch (err: any) {
+      setError(err?.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <title>Login | Expense Tracker</title>
+      <div className="flex flex-col justify-center items-center h-screen p-5">
+        <h1 className="text-center text-3xl font-medium mb-5">Login</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-sm flex flex-col gap-6"
+        >
+          <div className="grid gap-6">
+            <div className="grid gap-2">
+              <label htmlFor="email" className="label text-black">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="input input-neutral w-full"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="you@example.com"
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex justify-between mt-4">
+                <label htmlFor="password" className="label text-black">
+                  Password
+                </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm font-medium underline text-black"
                 >
                   Forgot password?
-                </TextLink>
-              )} */}
+                </Link>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                className="input input-neutral w-full"
+                autoComplete="off"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                placeholder="******"
+              />
             </div>
-            <Input
-              id="password"
-              type="password"
-              required
-              tabIndex={2}
-              autoComplete="current-password"
-              //   value={data.password}
-              //   onChange={(e) => setData("password", e.target.value)}
-              placeholder="Password"
-            />
-            {/* <InputError message={errors.password} /> */}
+
+            {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+
+            <button
+              type="submit"
+              className="w-full btn btn-neutral"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
+            </button>
+
+            <div className="text-center text-sm text-gray-600 mt-3">
+              Don't have an account?{" "}
+              <Link to="/register" className="text- font-medium">
+                Sign up
+              </Link>
+            </div>
+
+            <div className="relative mt-6 text-center text-sm text-gray-600">
+              <div className="flex items-center justify-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
+                <span className="px-2 bg-primary-100 text-gray-500">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="w-full btn btn-outline mt-5"
+              // onClick={() => signupWithGoogle()}
+            >
+              Login with Google
+            </button>
           </div>
-
-          <div className="flex items-center space-x-3">
-            <Checkbox
-              id="remember"
-              name="remember"
-              //   checked={data.remember}
-              //   onClick={() => setData("remember", !data.remember)}
-              tabIndex={3}
-            />
-            <Label htmlFor="remember">Remember me</Label>
-          </div>
-
-          <Button
-            type="submit"
-            className="mt-4 w-full"
-            tabIndex={4}
-            // disabled={processing}
-          >
-            {/* {processing && <LoaderCircle className="h-4 w-4 animate-spin" />} */}
-            Log in
-          </Button>
-        </div>
-
-        <div className="text-muted-foreground text-center text-sm">
-          Don't have an account?{" "}
-          <Link to="/register" tabIndex={5}>
-            Sign up
-          </Link>
-        </div>
-      </form>
-      <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-        <span className="bg-background text-muted-foreground relative z-10 px-2">
-          Or continue with
-        </span>
+        </form>
       </div>
-      <Button
-        variant="outline"
-        className="w-full"
-        // onClick={() => signupWithGoogle()}
-        tabIndex={4}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path
-            d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-            fill="currentColor"
-          />
-        </svg>
-        Login with Google
-      </Button>
-      {status && (
-        <div className="mb-4 text-center text-sm font-medium text-green-600">
-          {status}
-        </div>
-      )}
-    </AuthLayout>
+    </>
   );
 }

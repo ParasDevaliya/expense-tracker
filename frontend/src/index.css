@@ -1,34 +1,27 @@
-/* src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
 
-@import "tw-animate-css";
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* 🧠 Move all your custom CSS *after* Tailwind imports */
+/* :root {
+  --color-bg: #0f172a;
+  --color-brand: #684958;
+  --color-brand-600: #946a7b;
+  --bg-brand: #684958;
+} */
 
-  /* color-scheme: light dark; */
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* Your base styles */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+/* @theme {
+  --color-primary: #946a7b;
+  --color-secondary: #fbbf24;
+  --color-accent: #10b981;
+  --color-danger: #ef4444;
+  --color-brand: #302128;
+  --color-text: #ffffff;
 } */

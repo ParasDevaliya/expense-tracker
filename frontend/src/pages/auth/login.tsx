@@ -31,7 +31,7 @@ export default function LoginPage() {
   return (
     <>
       <title>Login | Expense Tracker</title>
-      <div className="flex flex-col justify-center items-center h-screen p-5">
+      <div className="flex flex-col justify-center items-center h-screen p-5 bg-base-300">
         <h1 className="text-center text-3xl font-medium mb-5">Login</h1>
         <form
           onSubmit={handleSubmit}
@@ -82,13 +82,13 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full btn btn-neutral"
+              className="w-full btn btn-primary"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}
             </button>
 
-            <div className="text-center text-sm text-gray-600 mt-3">
+            <div className="text-center text-sm text-white mt-3">
               Don't have an account?{" "}
               <Link to="/register" className="text- font-medium">
                 Sign up
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
             <div className="relative mt-6 text-center text-sm text-gray-600">
               <div className="flex items-center justify-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
-                <span className="px-2 bg-primary-100 text-gray-500">
+                <span className="px-2 bg-primary-100 text-white">
                   Or continue with
                 </span>
               </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
 
             <button
               type="button"
-              className="w-full btn btn-outline mt-5"
+              className="w-full btn btn-primary mt-5"
               // onClick={() => signupWithGoogle()}
             >
               Login with Google

@@ -46,7 +46,7 @@ export default function RegisterPage() {
   return (
     <>
       <title>Register | Expense Tracker</title>
-      <div className="flex flex-col justify-center items-center min-h-screen p-5">
+      <div className="flex flex-col justify-center items-center min-h-screen p-5 bg-base-300">
         <h1 className="text-center text-3xl font-medium mb-5">Register</h1>
         <form
           onSubmit={handleSubmit}
@@ -124,16 +124,16 @@ export default function RegisterPage() {
             {/* Submit button */}
             <button
               type="submit"
-              className="w-full btn btn-neutral"
+              className="w-full btn btn-primary"
               disabled={loading}
             >
               {loading ? "Processing..." : "Create Account"}
             </button>
 
             {/* Login link */}
-            <div className="text-center text-sm text-gray-600 mt-3">
+            <div className="text-center text-sm text-white mt-3">
               Already have an account?{" "}
-              <Link to="/login" className="text-black hover:underline">
+              <Link to="/login" className="text-white hover:underline">
                 Log in
               </Link>
             </div>
@@ -141,14 +141,14 @@ export default function RegisterPage() {
             {/* Divider */}
             <div className="relative mt-6 text-center text-sm text-gray-600">
               <div className="flex items-center justify-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
-                <span className="px-2 bg-primary-100 text-gray-500">
+                <span className="px-2 bg-primary-100 text-white">
                   Or continue with
                 </span>
               </div>
             </div>
 
             {/* Google button */}
-            <button type="button" className="w-full btn btn-outline mt-5">
+            <button type="button" className="w-full btn btn-primary mt-5">
               Login with Google
             </button>
           </div>

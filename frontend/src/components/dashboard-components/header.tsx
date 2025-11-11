@@ -1,9 +1,9 @@
 export default function DashboardHeder() {
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-300 shadow-sm">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">UI</a>
+          <a className="btn btn-ghost text-xl text-white">UI</a>
         </div>
 
         <div className="navbar-end">
@@ -13,7 +13,7 @@ export default function DashboardHeder() {
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="#ffffff"
             >
               {" "}
               <path
@@ -32,7 +32,7 @@ export default function DashboardHeder() {
             >
               <div className="">
                 <svg
-                  fill="#000000"
+                  fill="#ffffff"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   width="23px"
